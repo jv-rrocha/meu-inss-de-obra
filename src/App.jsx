@@ -25,45 +25,85 @@ const TIPOS_CONSTRUCAO = [
 
 function BuildingSVG() {
   return (
-    <svg className="building-svg" viewBox="0 0 400 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="400" height="340" rx="16" fill="#0F1623"/>
-      {/* Grid background */}
-      {[...Array(8)].map((_, i) => (
-        <line key={`h${i}`} x1="20" y1={40 + i * 38} x2="380" y2={40 + i * 38} stroke="#1E2D45" strokeWidth="0.5"/>
+    <svg className="building-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="glow-blue" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glow-soft" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <radialGradient id="win-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.9"/>
+          <stop offset="100%" stopColor="#1D6CE8" stopOpacity="0.2"/>
+        </radialGradient>
+        <radialGradient id="win-dark" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#0a0f1e" stopOpacity="1"/>
+          <stop offset="100%" stopColor="#1D6CE8" stopOpacity="0.15"/>
+        </radialGradient>
+      </defs>
+
+      {/* Background */}
+      <rect width="500" height="500" fill="#080B12"/>
+
+      {/* Left scaffolding column */}
+      <rect x="52" y="60" width="4" height="390" fill="none" stroke="#1D6CE8" strokeWidth="1.5" filter="url(#glow-soft)"/>
+      {/* Scaffolding horizontal bars */}
+      {[100, 190, 280, 370].map((y, i) => (
+        <line key={i} x1="52" y1={y} x2="118" y2={y} stroke="#1D6CE8" strokeWidth="1" filter="url(#glow-soft)"/>
       ))}
-      {[...Array(10)].map((_, i) => (
-        <line key={`v${i}`} x1={20 + i * 40} y1="20" x2={20 + i * 40} y2="320" stroke="#1E2D45" strokeWidth="0.5"/>
+
+      {/* Main building body */}
+      <rect x="118" y="60" width="300" height="390" fill="#080d1a" stroke="#1D6CE8" strokeWidth="2" filter="url(#glow-blue)"/>
+
+      {/* Left annex */}
+      <rect x="52" y="60" width="66" height="390" fill="#06090f" stroke="#1D6CE8" strokeWidth="1.5" filter="url(#glow-soft)"/>
+
+      {/* Horizontal floor dividers */}
+      {[150, 240, 330].map((y, i) => (
+        <line key={i} x1="52" y1={y} x2="418" y2={y} stroke="#1D6CE8" strokeWidth="1" opacity="0.6"/>
       ))}
-      {/* Building outline */}
-      <rect x="80" y="80" width="240" height="220" rx="2" stroke="#1D6CE8" strokeWidth="2" fill="rgba(29,108,232,0.04)"/>
-      {/* Windows grid */}
-      {[0,1,2,3].map(row =>
-        [0,1,2,3].map(col => (
-          <rect
-            key={`w${row}${col}`}
-            x={100 + col * 50}
-            y={100 + row * 40}
-            width="28"
-            height="22"
-            rx="2"
-            fill={row === 3 && col === 1 ? 'none' : 'rgba(29,108,232,0.35)'}
-            stroke="#1D6CE8"
-            strokeWidth="1"
-          />
-        ))
-      )}
-      {/* Door */}
-      <rect x="170" y="258" width="60" height="42" rx="2" stroke="#1D6CE8" strokeWidth="1.5" fill="rgba(29,108,232,0.1)"/>
-      {/* Crane */}
-      <line x1="290" y1="30" x2="290" y2="100" stroke="#1D6CE8" strokeWidth="2"/>
-      <line x1="220" y1="30" x2="340" y2="30" stroke="#1D6CE8" strokeWidth="2"/>
-      <line x1="330" y1="30" x2="330" y2="50" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="3 3"/>
-      <circle cx="330" cy="54" r="5" fill="#3B82F6"/>
-      {/* Foundation line */}
-      <line x1="60" y1="300" x2="340" y2="300" stroke="#1D6CE8" strokeWidth="2"/>
-      {/* Measurement arrows */}
-      <line x1="50" y1="80" x2="50" y2="300" stroke="#3B82F6" strokeWidth="1" strokeDasharray="4 3"/>
-      <text x="36" y="195" fill="#3B82F6" fontSize="10" fontFamily="JetBrains Mono, monospace">h</text>
+
+      {/* Crane tower */}
+      <rect x="390" y="20" width="6" height="200" fill="none" stroke="#1D6CE8" strokeWidth="2" filter="url(#glow-soft)"/>
+      {/* Crane arm */}
+      <line x1="230" y1="30" x2="430" y2="30" stroke="#1D6CE8" strokeWidth="2.5" filter="url(#glow-blue)"/>
+      {/* Crane diagonal cable */}
+      <line x1="393" y1="30" x2="300" y2="70" stroke="#1D6CE8" strokeWidth="1.5" opacity="0.7"/>
+      <line x1="393" y1="30" x2="430" y2="70" stroke="#1D6CE8" strokeWidth="1.5" opacity="0.7"/>
+      {/* Crane hook cable */}
+      <line x1="260" y1="30" x2="260" y2="75" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="4 3"/>
+
+      {/* WINDOWS — Row 1 (top, lit) */}
+      <rect x="148" y="75" width="65" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
+      <rect x="233" y="75" width="65" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
+      <rect x="318" y="75" width="75" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
+
+      {/* WINDOWS — Row 2 */}
+      <rect x="148" y="165" width="65" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
+      <rect x="233" y="165" width="65" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
+      <rect x="318" y="165" width="75" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
+
+      {/* WINDOWS — Row 3 */}
+      <rect x="148" y="255" width="65" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
+      <rect x="233" y="255" width="65" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
+      <rect x="318" y="255" width="75" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
+
+      {/* WINDOWS — Row 4 (bottom) */}
+      <rect x="148" y="345" width="65" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
+      {/* Door center */}
+      <rect x="233" y="355" width="65" height="95" fill="#040710" stroke="#1D6CE8" strokeWidth="1.5"/>
+      <rect x="318" y="345" width="75" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
+
+      {/* Foundation / ground line */}
+      <line x1="30" y1="450" x2="470" y2="450" stroke="#1D6CE8" strokeWidth="2" filter="url(#glow-soft)"/>
+
+      {/* Left annex windows (small) */}
+      {[85, 165, 255, 345].map((y, i) => (
+        <rect key={i} x="68" y={y} width="30" height="40" fill={i % 2 === 0 ? 'url(#win-glow)' : 'url(#win-dark)'} stroke="#1D6CE8" strokeWidth="1" filter={i % 2 === 0 ? 'url(#glow-soft)' : undefined}/>
+      ))}
     </svg>
   )
 }
