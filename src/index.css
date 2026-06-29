@@ -178,8 +178,8 @@ body {
 
 .building-svg {
   width: 100%;
-  max-width: 420px;
-  opacity: 0.9;
+  height: auto;
+  display: block;
 }
 
 /* ── SECTION ── */
