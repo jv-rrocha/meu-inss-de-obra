@@ -29,7 +29,12 @@ function BuildingSVG() {
       src="/casa.png"
       alt="Casa moderna em construção"
       className="building-svg"
-      style={{ objectFit: 'contain', borderRadius: '12px' }}
+      style={{
+        objectFit: 'contain',
+        width: '100%',
+        maxWidth: '520px',
+        mixBlendMode: 'screen',
+      }}
     />
   )
 }
