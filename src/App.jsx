@@ -253,9 +253,7 @@ export default function App() {
                   </div>
                 </Accordion>
 
-                <p className="result-disclaimer">
-                  * Valor estimado com base nas tabelas VAU e nas normas da Receita Federal vigentes. O valor real pode variar conforme fiscalização.
-                </p>
+
               </div>
 
               {/* CTA WhatsApp */}
