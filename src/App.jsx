@@ -30,10 +30,10 @@ function BuildingSVG() {
       alt="Casa moderna em construção"
       className="building-svg"
       style={{
-        objectFit: 'contain',
         width: '100%',
-        maxWidth: '520px',
-        mixBlendMode: 'screen',
+        maxWidth: '680px',
+        height: 'auto',
+        display: 'block',
       }}
     />
   )
