@@ -24,86 +24,110 @@ const TIPOS_CONSTRUCAO = [
 ]
 
 function BuildingSVG() {
+  const S = '#1D6CE8'
+  const SB = '#3B82F6'
+  const W = '1.5'
+  const WT = '1'
+  const F = '#080B12'
   return (
-    <svg className="building-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="glow-blue" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="6" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="glow-soft" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <radialGradient id="win-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.9"/>
-          <stop offset="100%" stopColor="#1D6CE8" stopOpacity="0.2"/>
-        </radialGradient>
-        <radialGradient id="win-dark" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#0a0f1e" stopOpacity="1"/>
-          <stop offset="100%" stopColor="#1D6CE8" stopOpacity="0.15"/>
-        </radialGradient>
-      </defs>
+    <svg className="building-svg" viewBox="0 0 560 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-      {/* Background */}
-      <rect width="500" height="500" fill="#080B12"/>
+      {/* ── GROUND LINE ── */}
+      <line x1="30" y1="345" x2="530" y2="345" stroke={S} strokeWidth={W}/>
 
-      {/* Left scaffolding column */}
-      <rect x="52" y="60" width="4" height="390" fill="none" stroke="#1D6CE8" strokeWidth="1.5" filter="url(#glow-soft)"/>
-      {/* Scaffolding horizontal bars */}
-      {[100, 190, 280, 370].map((y, i) => (
-        <line key={i} x1="52" y1={y} x2="118" y2={y} stroke="#1D6CE8" strokeWidth="1" filter="url(#glow-soft)"/>
-      ))}
+      {/* ══════════════════════════════════════
+          LOWER LEFT BLOCK — garage / carport
+      ══════════════════════════════════════ */}
 
-      {/* Main building body */}
-      <rect x="118" y="60" width="300" height="390" fill="#080d1a" stroke="#1D6CE8" strokeWidth="2" filter="url(#glow-blue)"/>
+      {/* Front face of lower block */}
+      <polygon points="60,345 60,230 220,230 220,345" fill={F} stroke={S} strokeWidth={W}/>
+      {/* Top face (perspective) */}
+      <polygon points="60,230 80,210 240,210 220,230" fill="#060d1a" stroke={S} strokeWidth={W}/>
+      {/* Right side face */}
+      <polygon points="220,230 240,210 240,345 220,345" fill="#040a14" stroke={S} strokeWidth={WT}/>
 
-      {/* Left annex */}
-      <rect x="52" y="60" width="66" height="390" fill="#06090f" stroke="#1D6CE8" strokeWidth="1.5" filter="url(#glow-soft)"/>
+      {/* Carport opening — front arch/frame */}
+      <polygon points="68,345 68,245 145,245 145,345" fill="#010610" stroke={S} strokeWidth={WT}/>
+      {/* Carport inner frame */}
+      <polygon points="74,345 74,251 139,251 139,345" fill="none" stroke={SB} strokeWidth="0.8"/>
 
-      {/* Horizontal floor dividers */}
-      {[150, 240, 330].map((y, i) => (
-        <line key={i} x1="52" y1={y} x2="418" y2={y} stroke="#1D6CE8" strokeWidth="1" opacity="0.6"/>
-      ))}
+      {/* Carport top horizontal beam */}
+      <line x1="60" y1="245" x2="220" y2="245" stroke={S} strokeWidth={WT}/>
+      <line x1="68" y1="245" x2="80" y2="235" stroke={S} strokeWidth={WT}/>
 
-      {/* Crane tower */}
-      <rect x="390" y="20" width="6" height="200" fill="none" stroke="#1D6CE8" strokeWidth="2" filter="url(#glow-soft)"/>
-      {/* Crane arm */}
-      <line x1="230" y1="30" x2="430" y2="30" stroke="#1D6CE8" strokeWidth="2.5" filter="url(#glow-blue)"/>
-      {/* Crane diagonal cable */}
-      <line x1="393" y1="30" x2="300" y2="70" stroke="#1D6CE8" strokeWidth="1.5" opacity="0.7"/>
-      <line x1="393" y1="30" x2="430" y2="70" stroke="#1D6CE8" strokeWidth="1.5" opacity="0.7"/>
-      {/* Crane hook cable */}
-      <line x1="260" y1="30" x2="260" y2="75" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="4 3"/>
+      {/* ══════════════════════════════════════
+          UPPER MAIN BLOCK — 2 storey house
+      ══════════════════════════════════════ */}
 
-      {/* WINDOWS — Row 1 (top, lit) */}
-      <rect x="148" y="75" width="65" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
-      <rect x="233" y="75" width="65" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
-      <rect x="318" y="75" width="75" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
+      {/* Front face of main block */}
+      <polygon points="200,345 200,130 400,130 400,345" fill={F} stroke={S} strokeWidth={W}/>
+      {/* Top face (flat roof perspective) */}
+      <polygon points="200,130 222,108 422,108 400,130" fill="#060d1a" stroke={S} strokeWidth={W}/>
+      {/* Right side face */}
+      <polygon points="400,130 422,108 422,345 400,345" fill="#040a14" stroke={S} strokeWidth={WT}/>
 
-      {/* WINDOWS — Row 2 */}
-      <rect x="148" y="165" width="65" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
-      <rect x="233" y="165" width="65" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
-      <rect x="318" y="165" width="75" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
+      {/* Floor divider (ground floor / upper floor) */}
+      <line x1="200" y1="237" x2="400" y2="237" stroke={S} strokeWidth={WT} opacity="0.7"/>
+      <line x1="400" y1="237" x2="422" y2="215" stroke={S} strokeWidth={WT} opacity="0.5"/>
 
-      {/* WINDOWS — Row 3 */}
-      <rect x="148" y="255" width="65" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
-      <rect x="233" y="255" width="65" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
-      <rect x="318" y="255" width="75" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
+      {/* ══ CANTILEVERED OVERHANG / VARANDA ══ */}
+      {/* Slab underside */}
+      <polygon points="155,175 200,175 200,195 155,195" fill="#040a14" stroke={S} strokeWidth={WT}/>
+      {/* Slab top */}
+      <polygon points="155,165 200,165 200,175 155,175" fill="#060d1a" stroke={S} strokeWidth={W}/>
+      {/* Slab perspective edge */}
+      <polygon points="155,165 172,148 200,148 200,165" fill="#060d1a" stroke={S} strokeWidth={WT}/>
+      {/* Slab front edge bright line */}
+      <line x1="155" y1="165" x2="200" y2="165" stroke={SB} strokeWidth={W}/>
+      {/* Slab connection to main wall */}
+      <line x1="200" y1="148" x2="200" y2="175" stroke={S} strokeWidth={WT}/>
+      {/* Vertical support column under overhang */}
+      <line x1="162" y1="195" x2="162" y2="237" stroke={S} strokeWidth={WT}/>
+      <line x1="162" y1="237" x2="200" y2="237" stroke={S} strokeWidth={WT} opacity="0.5"/>
 
-      {/* WINDOWS — Row 4 (bottom) */}
-      <rect x="148" y="345" width="65" height="55" fill="url(#win-dark)" stroke="#1D6CE8" strokeWidth="1.5"/>
-      {/* Door center */}
-      <rect x="233" y="355" width="65" height="95" fill="#040710" stroke="#1D6CE8" strokeWidth="1.5"/>
-      <rect x="318" y="345" width="75" height="55" fill="url(#win-glow)" stroke="#3B82F6" strokeWidth="1.5" filter="url(#glow-soft)"/>
+      {/* ══ UPPER FLOOR WINDOWS ══ */}
+      {/* Window left upper */}
+      <polygon points="212,145 212,195 270,195 270,145" fill="#010918" stroke={S} strokeWidth={WT}/>
+      <polygon points="218,151 218,189 264,189 264,151" fill="none" stroke={SB} strokeWidth="0.8"/>
+      {/* Window right upper — tall narrow */}
+      <polygon points="310,138 310,195 355,195 355,138" fill="#010918" stroke={S} strokeWidth={W}/>
+      <polygon points="316,144 316,189 349,189 349,144" fill="none" stroke={SB} strokeWidth="0.8"/>
 
-      {/* Foundation / ground line */}
-      <line x1="30" y1="450" x2="470" y2="450" stroke="#1D6CE8" strokeWidth="2" filter="url(#glow-soft)"/>
+      {/* ══ LOWER FLOOR ELEMENTS ══ */}
+      {/* Door */}
+      <polygon points="250,345 250,262 300,262 300,345" fill="#010610" stroke={S} strokeWidth={WT}/>
+      <polygon points="255,345 255,267 295,267 295,345" fill="none" stroke={SB} strokeWidth="0.8"/>
+      {/* Door handle */}
+      <circle cx="258" cy="305" r="2.5" fill="none" stroke={SB} strokeWidth="0.8"/>
 
-      {/* Left annex windows (small) */}
-      {[85, 165, 255, 345].map((y, i) => (
-        <rect key={i} x="68" y={y} width="30" height="40" fill={i % 2 === 0 ? 'url(#win-glow)' : 'url(#win-dark)'} stroke="#1D6CE8" strokeWidth="1" filter={i % 2 === 0 ? 'url(#glow-soft)' : undefined}/>
-      ))}
+      {/* Lower right window */}
+      <polygon points="325,248 325,310 385,310 385,248" fill="#010918" stroke={S} strokeWidth={WT}/>
+      <polygon points="331,254 331,304 379,304 379,254" fill="none" stroke={SB} strokeWidth="0.8"/>
+
+      {/* ══════════════════════════════════════
+          SCAFFOLD — right side
+      ══════════════════════════════════════ */}
+      {/* Vertical poles */}
+      <line x1="422" y1="160" x2="422" y2="345" stroke={S} strokeWidth={W}/>
+      <line x1="460" y1="160" x2="460" y2="345" stroke={S} strokeWidth={W}/>
+      <line x1="495" y1="190" x2="495" y2="345" stroke={S} strokeWidth={WT}/>
+      {/* Horizontal levels */}
+      <line x1="420" y1="200" x2="497" y2="200" stroke={S} strokeWidth={W}/>
+      <line x1="420" y1="250" x2="497" y2="250" stroke={S} strokeWidth={W}/>
+      <line x1="420" y1="300" x2="497" y2="300" stroke={S} strokeWidth={W}/>
+      {/* Scaffold plank at top */}
+      <rect x="420" y="157" width="77" height="5" fill="#060d1a" stroke={S} strokeWidth={WT}/>
+      {/* Cross braces */}
+      <line x1="422" y1="200" x2="460" y2="250" stroke={S} strokeWidth="0.8" opacity="0.6"/>
+      <line x1="460" y1="200" x2="422" y2="250" stroke={S} strokeWidth="0.8" opacity="0.6"/>
+      <line x1="422" y1="250" x2="460" y2="300" stroke={S} strokeWidth="0.8" opacity="0.6"/>
+      <line x1="460" y1="250" x2="422" y2="300" stroke={S} strokeWidth="0.8" opacity="0.6"/>
+
+      {/* ══ DASHED CONSTRUCTION LINES ══ */}
+      {/* Left dashed pole */}
+      <line x1="115" y1="155" x2="115" y2="210" stroke={S} strokeWidth={WT} strokeDasharray="5 4"/>
+      {/* Center dashed pole */}
+      <line x1="290" y1="60" x2="290" y2="108" stroke={S} strokeWidth={WT} strokeDasharray="5 4"/>
     </svg>
   )
 }
