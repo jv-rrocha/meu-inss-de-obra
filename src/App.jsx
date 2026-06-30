@@ -267,7 +267,7 @@ export default function App() {
                 </div>
                 <p className="cta-sub">Para saber mais, entre em contato com a nossa equipe.</p>
                 <a
-                  href="https://wa.me/NUMERO_AQUI"
+                  href="https://wa.me/5521971143829?text=Olá,%20acabei%20de%20usar%20a%20calculadora%20de%20INSS%20de%20Obra%20e%20gostaria%20de%20saber%20como%20reduzir%20meu%20imposto"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-whatsapp"
